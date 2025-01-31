@@ -29,4 +29,86 @@ class DoublyLinkedList:
       self.length += 1
       return True
   
+  def pop(self):
+    if self.length == 0:
+      return None
+    temp = self.tail
+    if self.length == 1:
+      self.head = None
+      self.tail = None
+    else:
+      self.tail = self.tail.prev
+      self.tail.next = None
+      temp.prev = None
+    self.length -= 1
+    return temp
   
+  def prepend(self, value) -> bool:
+    new_node = Node(value)
+    if self.length == 0:
+      self.head = new_node
+      self.tail = new_node
+    else:
+      self.head.prev = new_node
+      new_node.next = self.head
+      self.head = new_node
+    self.length += 1
+    return True
+  
+  def pop_first(self):
+    if self.length == 0:
+      return None
+    temp = self.head
+    if self.length == 1:
+      self.head = None
+      self.tail = None
+    else:
+      self.head = self.head.next
+      self.head.prev = None
+      temp.next = None
+    self.length -= 1
+    return temp
+   
+  def get(self, index):
+    if index < 0 or index >= self.length:
+      return None
+    if index < self.length / 2:
+      temp = self.head
+      for _ in range(index):
+        temp = temp.next
+      return temp
+    else:
+      temp = self.tail
+      for _ in range(self.length - 1, index, -1):
+        temp = temp.prev
+      return temp
+
+  def set(self, index, value) -> bool:
+    temp = self.get(index)
+    if temp:
+      temp.value = value
+      return True
+    return False
+  
+  def insert(self, index, value):
+    ...
+    
+  
+  def remove():
+    ...
+  
+
+# Tests
+d_ll = DoublyLinkedList(5)
+d_ll.append(6)
+d_ll.prepend(4)
+d_ll.printList()
+d_ll.pop_first()
+print("--------------")
+d_ll.printList()
+print("--------------")
+print(d_ll.get(0).value)
+print(d_ll.get(1).value)
+print("--------------")
+d_ll.set(1, 1)
+d_ll.printList()
